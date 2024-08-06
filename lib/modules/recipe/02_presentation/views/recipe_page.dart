@@ -1,178 +1,142 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get/get.dart';
-import 'package:kitchen_app/modules/00_core_modules/designer_system/global_scaffold_widget.dart';
+import 'package:kitchen_app/modules/00_core_modules/bloc/generic_bloc_event.dart';
+import 'package:kitchen_app/modules/00_core_modules/bloc/generic_bloc_state.dart';
+import '../../../00_core_modules/designer_system/cards/card_widget.dart';
+import '../../../00_core_modules/designer_system/global_scaffold_widget.dart';
+import '../bloc/recipe_bloc.dart';
 
-class RecipePage extends StatelessWidget {
+class RecipePage extends StatefulWidget {
   const RecipePage({super.key});
+
+  @override
+  State<RecipePage> createState() => _RecipePageState();
+}
+
+class _RecipePageState extends State<RecipePage> {
+  late final RecipeBloc _bloc;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _bloc = Modular.get<RecipeBloc>();
+    _bloc.add(LoadGenericBlocEvent<RecipeEvent>());
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    double sizeWidht = MediaQuery.of(context).size.width;
+
     return GlobalScaffoldWidget(
       appBarTitle: 'Comida',
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 50),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            if (constraints.maxWidth >= 800) {
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      padding: const EdgeInsets.only(right: 50),
-                      color: Colors.transparent,
-                      height: 869,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Filtrar por tipo',
-                            style: theme.textTheme.bodyLarge!
-                                .copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          const Text('Categorias tipos - '),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const RowCheckBox(
-                            text: 'Fitness',
-                          ),
-                          const RowCheckBox(
-                            text: 'Família brasileira',
-                          ),
-                          const RowCheckBox(
-                            text: 'Churrasco de domingo',
-                          ),
-                          const RowCheckBox(
-                            text: 'Japonesa',
-                          ),
-                          const RowCheckBox(
-                            text: 'Chinesa',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Container(
-                      color: Colors.transparent,
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          return Wrap(
-                            spacing: 50,
-                            runSpacing: 20,
+      body: BlocBuilder<RecipeBloc, GenericBlocState<RecipeState>>(
+        bloc: _bloc,
+        builder: (context, state) {
+          print("Estado = $state");
+          return Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: sizeWidht < 1350 ? 20 : 250, vertical: 50),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth >= 800) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          padding: const EdgeInsets.only(right: 50),
+                          color: Colors.transparent,
+                          height: 869,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                height: 485,
-                                width: 404,
-                                decoration: const BoxDecoration(
-                                  color: Colors.transparent,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: AssetImage(
-                                              'assets/images/donuts.jpg',
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Donnuts(American Food)',
-                                      style: theme.textTheme.headlineMedium,
-                                    ),
-                                    Text(
-                                      'Duração: 30 minutos',
-                                      style: theme.textTheme.bodySmall,
-                                    )
-                                  ],
-                                ),
+                              Text(
+                                'Filtrar por tipo',
+                                style: theme.textTheme.bodyLarge!
+                                    .copyWith(fontWeight: FontWeight.bold),
                               ),
-                              Container(
-                                height: 485,
-                                width: 404,
-                                decoration: const BoxDecoration(
-                                  color: Colors.transparent,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: AssetImage(
-                                              'assets/images/baked.png',
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Donnuts(American Food)',
-                                      style: theme.textTheme.headlineMedium,
-                                    ),
-                                    Text(
-                                      'Duração: 30 minutos',
-                                      style: theme.textTheme.bodySmall,
-                                    )
-                                  ],
-                                ),
+                              const Text('Categorias tipos - '),
+                              const SizedBox(
+                                height: 20,
                               ),
-                              Container(
-                                height: 485,
-                                width: 404,
-                                decoration: const BoxDecoration(
-                                  color: Colors.transparent,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: AssetImage(
-                                              'assets/images/chicken.png',
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Chicken Makhani (Indian Butter Chicken)',
-                                      style: theme.textTheme.headlineMedium,
-                                    ),
-                                    Text(
-                                      'Duração: 30 minutos',
-                                      style: theme.textTheme.bodySmall,
-                                    )
-                                  ],
-                                ),
+                              const RowCheckBox(
+                                text: 'Fitness',
+                              ),
+                              const RowCheckBox(
+                                text: 'Família brasileira',
+                              ),
+                              const RowCheckBox(
+                                text: 'Churrasco de domingo',
+                              ),
+                              const RowCheckBox(
+                                text: 'Japonesa',
+                              ),
+                              const RowCheckBox(
+                                text: 'Chinesa',
                               ),
                             ],
-                          );
-                        },
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ],
-              );
-            }
-            return const SizedBox();
-          },
-        ),
+                      Expanded(
+                        flex: 5,
+                        child: Container(
+                          color: Colors.transparent,
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              return Wrap(
+                                alignment: WrapAlignment.spaceBetween,
+                                runSpacing: 20,
+                                children: [
+                                  CardWidget(
+                                    sizeWidht: constraints.maxWidth <= 1250
+                                        ? 300
+                                        : 404,
+                                    image: const AssetImage(
+                                      'assets/images/donuts.jpg',
+                                    ),
+                                    name: 'Donnuts(American Food)',
+                                    duration: 'Duração: 30 minutos',
+                                  ),
+                                  CardWidget(
+                                    sizeWidht: constraints.maxWidth <= 1250
+                                        ? 300
+                                        : 404,
+                                    image: const AssetImage(
+                                      'assets/images/donuts.jpg',
+                                    ),
+                                    name: 'Donnuts(American Food)',
+                                    duration: 'Duração: 30 minutos',
+                                  ),
+                                  CardWidget(
+                                    sizeWidht: constraints.maxWidth <= 1250
+                                        ? 300
+                                        : 404,
+                                    image: const AssetImage(
+                                      'assets/images/donuts.jpg',
+                                    ),
+                                    name: 'Donnuts(American Food)',
+                                    duration: 'Duração: 30 minutos',
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return const SizedBox();
+              },
+            ),
+          );
+        },
       ),
     );
   }
@@ -191,11 +155,16 @@ class RowCheckBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: Text(text),
+          child: Text(
+            text,
+            style: theme.textTheme.bodyMedium,
+          ),
         ),
         Checkbox(
           value: value,

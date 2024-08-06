@@ -91,12 +91,16 @@ class BottomHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
       width: double.infinity,
       height: 230,
-      color: theme.colorScheme.secondary,
       padding: const EdgeInsets.symmetric(horizontal: 25),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/Image.png'),
+          fit: BoxFit.fitWidth,
+        ),
+      ),
       child: const Center(
         child: SizedBox(
           width: 900,

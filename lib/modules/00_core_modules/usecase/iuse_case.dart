@@ -1,11 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-
 import '../failures/failures.dart';
 
 abstract class IUseCase<T, Params, R> {
   Future<Either<Failure, List<T>>> call(GetAllParams<R> params);
-  Future<Either<Failure, bool>> remove(RemoveParams<R> params);
 }
 
 abstract class Params extends Equatable {}
@@ -18,13 +16,14 @@ class NoParams extends Params {
 
 class GetAllParams<R> extends Params {
   final String table;
-  final R Function(Map<String, dynamic> map) fromMap;
 
-  GetAllParams({required this.table, required this.fromMap});
+  final List<R> Function(String p1) fromJson;
+
+  GetAllParams({required this.table, required this.fromJson});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [table, fromMap];
+  List<Object?> get props => [table, fromJson];
 }
 
 class RemoveParams<R> extends Params {
