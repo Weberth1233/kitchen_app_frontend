@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:kitchen_app/modules/recipe/02_presentation/views/recipe_page.dart';
-import 'package:kitchen_app/modules/recipe/recipe_module.dart';
 
-import 'modules/00_core_modules/theme/theme.dart';
+import 'modules/00_core_module/theme/theme.dart';
+import 'modules/recipe/recipe_module.dart';
 
 void main() {
   runApp(ModularApp(module: RecipeModule(), child: const MyApp()));

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:kitchen_app/modules/00_core_module/utils/responsive.dart';
 
 class GlobalScaffoldWidget extends StatelessWidget {
-  final String appBarTitle;
   final Widget body;
-  final bool? centerTitle;
   final Color? backgroundColor;
+
+  final TextEditingController controller;
 
   const GlobalScaffoldWidget({
     super.key,
-    required this.appBarTitle,
     required this.body,
-    this.centerTitle = true,
     this.backgroundColor,
+    required this.controller,
   });
 
   @override
@@ -20,7 +20,7 @@ class GlobalScaffoldWidget extends StatelessWidget {
       body: ListView(
         children: [
           const TopHeader(),
-          const BottomHeader(),
+          BottomHeader(controller: controller),
           body,
         ],
       ),
@@ -87,31 +87,56 @@ class TopHeader extends StatelessWidget {
 }
 
 class BottomHeader extends StatelessWidget {
-  const BottomHeader({super.key});
+  final TextEditingController controller;
+  const BottomHeader({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       width: double.infinity,
-      height: 230,
+      height: 340,
       padding: const EdgeInsets.symmetric(horizontal: 25),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/Image.png'),
-          fit: BoxFit.fitWidth,
-        ),
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.6), BlendMode.darken),
+            image: const AssetImage('assets/images/Image.png'),
+            fit: BoxFit.fitWidth,
+            filterQuality: FilterQuality.high),
       ),
-      child: const Center(
-        child: SizedBox(
-          width: 900,
-          child: TextField(
-            decoration: InputDecoration(
-              fillColor: Colors.white,
-              prefixIcon: Icon(Icons.search),
-              suffixIcon: Icon(Icons.close),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'Qual receita deseja encontrar hoje ?',
+            style: Responsive.isMobile(context)
+                ? theme.textTheme.headlineSmall!.copyWith(
+                    color: theme.colorScheme.primary,
+                    fontWeight: FontWeight.bold)
+                : theme.textTheme.displayMedium!.copyWith(
+                    color: theme.colorScheme.primary,
+                    fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          SizedBox(
+            width: 800,
+            child: TextField(
+              controller: controller,
+              onChanged: (value) {
+                print(value);
+              },
+              style: TextStyle(color: theme.colorScheme.primary),
+              decoration: const InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                suffixIcon: Icon(Icons.close),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

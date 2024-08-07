@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 
 class CardWidget extends StatelessWidget {
-  final double sizeWidht;
   final ImageProvider<Object> image;
   final String name;
   final String duration;
+  final String category;
+
   const CardWidget({
     super.key,
-    required this.sizeWidht,
     required this.image,
     required this.name,
     required this.duration,
+    required this.category,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
+    return SizedBox(
       height: 485,
-      width: sizeWidht,
-      decoration: const BoxDecoration(
-        color: Colors.transparent,
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -44,14 +41,28 @@ class CardWidget extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            name,
-            style: theme.textTheme.headlineMedium,
+          SizedBox(
+            height: 120,
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: theme.textTheme.headlineMedium,
+                ),
+                Text(
+                  'Cerca de $duration minutos',
+                  style: theme.textTheme.bodySmall,
+                ),
+                Text(
+                  'Categoria: $category',
+                  style: theme.textTheme.bodySmall!
+                      .copyWith(color: theme.colorScheme.outlineVariant),
+                )
+              ],
+            ),
           ),
-          Text(
-            duration,
-            style: theme.textTheme.bodySmall,
-          )
         ],
       ),
     );

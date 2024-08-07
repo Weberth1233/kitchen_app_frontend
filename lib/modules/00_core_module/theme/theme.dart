@@ -8,6 +8,7 @@ class AppTheme {
   // static colors
   // *****************
   // static const Color _lightPrimaryBackgroundColor = Color(0XFFFFFFFF);
+//C57D5D
 
   static const Color _lightPrimaryColor = Color(0XFFFFFFFF);
   static const Color _lightSecondaryVariantColor = Color(0XFF2E5834);
@@ -17,6 +18,7 @@ class AppTheme {
 
   static const Color _lightTextColorVariantWhite = Color(0XFFFFFFFF);
   static const Color _lightTextColorVariantGrey = Color(0XFF7A7676);
+  static const Color _lightTextColorVariantOrange = Color(0XFFC57D5D);
   static const Color _lightTextColorVariantBlack = Colors.black;
   // static final Color _darkPrimaryColor = Colors.blueGrey.shade900;
   // static const Color _darkPrimaryVariantColor = Colors.black;
@@ -108,7 +110,9 @@ class AppTheme {
         suffixIconColor: _lightPrimaryColor,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(30),
+            Radius.circular(
+              30,
+            ),
           ),
         ),
       ),
@@ -128,6 +132,7 @@ class AppTheme {
         onSecondary: _lightTextColorVariantWhite,
         tertiary: _lightTertiaryVariantColor,
         outline: _lightTextColorVariantGrey,
+        outlineVariant: _lightTextColorVariantOrange,
 
         // secondary: _accentColor,
         // primaryContainer: _lightPrimaryVariantColor,

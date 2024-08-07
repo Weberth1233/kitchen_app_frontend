@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kitchen_app/modules/00_core_modules/usecase/iuse_case.dart';
-import 'package:kitchen_app/modules/00_core_modules/utils/paths_name.dart';
+import 'package:kitchen_app/modules/00_core_module/usecase/iuse_case.dart';
+import 'package:kitchen_app/modules/00_core_module/utils/paths_name.dart';
 import 'package:kitchen_app/modules/recipe/00_data/models/recipe_model.dart';
 import 'package:kitchen_app/modules/recipe/01_domain/entities/recipe_entity.dart';
-import '../../../00_core_modules/bloc/generic_bloc_event.dart';
-import '../../../00_core_modules/bloc/generic_bloc_state.dart';
+import '../../../00_core_module/bloc/generic_bloc_event.dart';
+import '../../../00_core_module/bloc/generic_bloc_state.dart';
 
 class RecipeBloc
     extends Bloc<GenericBlocEvent<RecipeEvent>, GenericBlocState<RecipeState>> {

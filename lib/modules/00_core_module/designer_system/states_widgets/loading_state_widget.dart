@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class LoadingStateWidget extends StatelessWidget {
   const LoadingStateWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator.adaptive(
-          // backgroundColor: Colors.green,
-          ),
-    );
+    return Center(child: Lottie.asset('animation/loading.json'));
   }
 }

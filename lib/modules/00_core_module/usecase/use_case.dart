@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:kitchen_app/modules/00_core_modules/failures/failures.dart';
+import 'package:kitchen_app/modules/00_core_module/failures/failures.dart';
 import '../repositories/irepository.dart';
 import 'iuse_case.dart';
 

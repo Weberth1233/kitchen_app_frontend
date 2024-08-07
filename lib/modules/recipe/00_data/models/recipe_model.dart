@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:kitchen_app/modules/recipe/00_data/models/category_model.dart';
 import 'package:kitchen_app/modules/recipe/00_data/models/step_model.dart';
 import 'package:kitchen_app/modules/recipe/01_domain/entities/recipe_entity.dart';
 
@@ -19,6 +21,7 @@ class RecipeModel extends RecipeEntity {
     required super.name,
     required super.category,
     required super.imageUrl,
+    required super.timeToPrepare,
     required this.ingredientsModel,
     required this.stepsModel,
   }) : super(
@@ -29,19 +32,21 @@ class RecipeModel extends RecipeEntity {
   factory RecipeModel.fromJson(Map<String, dynamic> json) {
     var ingredientsList = json['ingredients'] as List;
     var stepsList = json['steps'] as List;
+    var categoryJson = json['category'];
 
     List<IngredientModel> ingredientItems =
         ingredientsList.map((i) => IngredientModel.fromJson(i)).toList();
     List<StepModel> stepItems =
         stepsList.map((s) => StepModel.fromJson(s)).toList();
+    CategoryModel category = CategoryModel.fromJson(categoryJson);
 
     return RecipeModel(
-      name: json['name'],
-      category: json['category'],
-      imageUrl: json['image_url'],
-      ingredientsModel: ingredientItems,
-      stepsModel: stepItems,
-    );
+        name: json['name'],
+        category: category,
+        imageUrl: json['image_url'],
+        ingredientsModel: ingredientItems,
+        stepsModel: stepItems,
+        timeToPrepare: json['time_to_prepare']);
   }
 
   Map<String, dynamic> toJson() {
@@ -51,6 +56,7 @@ class RecipeModel extends RecipeEntity {
       'image_url': imageUrl,
       'ingredients': ingredientsModel.map((i) => i.toJson()).toList(),
       'steps': stepsModel.map((s) => s.toJson()).toList(),
+      'time_to_prepare': timeToPrepare,
     };
   }
 }

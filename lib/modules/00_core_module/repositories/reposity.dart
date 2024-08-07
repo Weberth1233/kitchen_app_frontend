@@ -16,6 +16,7 @@ class Reposity<T, R extends T> implements IRepository<T, R> {
     } on ServerFailure catch (_) {
       return left(ServerFailure());
     } catch (e) {
+      print(e);
       return left(GeneralFailure());
     }
   }
