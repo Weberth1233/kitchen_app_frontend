@@ -6,11 +6,11 @@ import '../../../../../base_url.dart';
 import '../../../../00_core_module/designer_system/cards/card_widget.dart';
 import '../../../01_domain/entities/recipe_entity.dart';
 
-class SessionMenuOfTheDay extends StatelessWidget {
+class SessionData extends StatelessWidget {
   final List<RecipeEntity> list;
   final String text;
   final String subText;
-  const SessionMenuOfTheDay(
+  const SessionData(
       {super.key,
       required this.list,
       required this.text,
@@ -59,7 +59,7 @@ class SessionMenuOfTheDay extends StatelessWidget {
             height: 20,
           ),
           Row(
-            children: List.generate(4, (index) {
+            children: List.generate(list.length, (index) {
               RecipeEntity recipe = list[index];
               return Expanded(
                 child: CardWidget(

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kitchen_app/modules/00_core_module/utils/responsive.dart';
+import 'package:kitchen_app/modules/recipe/02_presentation/controllers/text_field_controller.dart';
+
+import '../../recipe/02_presentation/bloc/recipe_bloc.dart';
+import '../bloc/generic_bloc_event.dart';
 
 class GlobalScaffoldWidget extends StatelessWidget {
   final Widget body;
   final Color? backgroundColor;
+  final RecipeBloc bloc;
 
   final TextEditingController controller;
 
@@ -12,6 +18,7 @@ class GlobalScaffoldWidget extends StatelessWidget {
     required this.body,
     this.backgroundColor,
     required this.controller,
+    required this.bloc,
   });
 
   @override
@@ -20,7 +27,10 @@ class GlobalScaffoldWidget extends StatelessWidget {
       body: ListView(
         children: [
           const TopHeader(),
-          BottomHeader(controller: controller),
+          BottomHeader(
+            controller: controller,
+            bloc: bloc,
+          ),
           body,
         ],
       ),
@@ -88,11 +98,14 @@ class TopHeader extends StatelessWidget {
 
 class BottomHeader extends StatelessWidget {
   final TextEditingController controller;
-  const BottomHeader({super.key, required this.controller});
+  final RecipeBloc bloc;
+  const BottomHeader({super.key, required this.controller, required this.bloc});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    // final ctrl = Get.find<TextFieldController>();
+
     return Container(
       width: double.infinity,
       height: 340,
@@ -127,7 +140,14 @@ class BottomHeader extends StatelessWidget {
             child: TextField(
               controller: controller,
               onChanged: (value) {
-                print(value);
+                bloc.add(LoadGenericPaginatedBlocEvent<RecipeEvent>(
+                  params: {
+                    "page": 1,
+                    "name": value,
+                  },
+                  filter: true,
+                ));
+                // ctrl.writingText(value);
               },
               style: TextStyle(color: theme.colorScheme.primary),
               decoration: const InputDecoration(

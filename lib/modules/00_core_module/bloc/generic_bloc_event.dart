@@ -14,6 +14,13 @@ class LoadGenericBlocEvent<R> extends GenericBlocEvent<R> {
 }
 
 @immutable
+class LoadGenericPaginatedBlocEvent<R> extends GenericBlocEvent<R> {
+  final Map<String, dynamic> params;
+  final bool filter;
+  LoadGenericPaginatedBlocEvent({required this.params, this.filter = false});
+}
+
+@immutable
 class RemoveGenericBlocEvent<R, T> extends GenericBlocEvent<R> {
   final T entity;
 

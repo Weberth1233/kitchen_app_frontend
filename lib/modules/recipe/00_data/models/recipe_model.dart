@@ -18,12 +18,14 @@ class RecipeModel extends RecipeEntity {
   final List<StepModel> stepsModel;
 
   RecipeModel({
+    required super.id,
     required super.name,
     required super.category,
     required super.imageUrl,
     required super.timeToPrepare,
     required this.ingredientsModel,
     required this.stepsModel,
+    required super.date,
   }) : super(
           ingredients: ingredientsModel,
           steps: stepsModel,
@@ -41,22 +43,26 @@ class RecipeModel extends RecipeEntity {
     CategoryModel category = CategoryModel.fromJson(categoryJson);
 
     return RecipeModel(
+        id: json['id'],
         name: json['name'],
         category: category,
         imageUrl: json['image_url'],
         ingredientsModel: ingredientItems,
         stepsModel: stepItems,
-        timeToPrepare: json['time_to_prepare']);
+        timeToPrepare: json['time_to_prepare'],
+        date: json['created_at']);
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'category': category,
       'image_url': imageUrl,
       'ingredients': ingredientsModel.map((i) => i.toJson()).toList(),
       'steps': stepsModel.map((s) => s.toJson()).toList(),
       'time_to_prepare': timeToPrepare,
+      'created_at': date,
     };
   }
 }

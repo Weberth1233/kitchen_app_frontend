@@ -13,6 +13,7 @@ class RecipeBloc
   RecipeBloc({required this.useCase})
       : super(GenericBlocInitialState<RecipeState>()) {
     on<LoadGenericBlocEvent<RecipeEvent>>(_onFetchedRecipe);
+    on<LoadGenericPaginatedBlocEvent<RecipeEvent>>(_onFetchedRecipePaginated);
   }
 
   Future<void> _onFetchedRecipe(LoadGenericBlocEvent<RecipeEvent> event,
@@ -34,8 +35,42 @@ class RecipeBloc
       );
     });
   }
+
+  Future<void> _onFetchedRecipePaginated(
+      LoadGenericPaginatedBlocEvent<RecipeEvent> event,
+      Emitter<GenericBlocState<RecipeState>> emit) async {
+    emit(GenericBlocLoadingState<RecipeState>());
+
+    final result = await useCase.call(
+      GetAllParams<RecipeModel>(
+        table: event.filter
+            ? PathsName.filterNameRecipe
+            : PathsName.recipePaginationAll,
+        fromJson: recipeModelFromJson,
+        mapParams: event.params,
+      ),
+    );
+    result.fold(
+        (failure) => emit(GenericBlocErrorState<RecipeState>(
+            message: 'Erro ao buscar os dados!')), (sucess) {
+      sucess.sort(
+        (a, b) => a.name.compareTo(b.name),
+      );
+      emit(
+        GenericBlocLoadedState<RecipeState, RecipeEntity>(entityList: sucess),
+      );
+    });
+  }
 }
 
 class RecipeEvent extends GenericBlocEvent {}
 
-class RecipeState extends GenericBlocState {}
+class RecipeState extends GenericBlocState {
+  final List<RecipeEntity> theDayRecipe;
+  final List<RecipeEntity> newRecipe;
+
+  RecipeState({
+    required this.theDayRecipe,
+    required this.newRecipe,
+  });
+}

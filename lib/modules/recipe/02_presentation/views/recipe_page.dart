@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get/get.dart';
+import 'package:kitchen_app/modules/recipe/02_presentation/controllers/text_field_controller.dart';
+import 'package:kitchen_app/modules/recipe/02_presentation/views/widgets/session_menu_of_the_day01.dart';
 import '../../../00_core_module/bloc/generic_bloc_event.dart';
 import '../../../00_core_module/bloc/generic_bloc_state.dart';
 import '../../../00_core_module/designer_system/global_scaffold_widget.dart';
@@ -12,7 +14,7 @@ import '../../01_domain/entities/recipe_entity.dart';
 import '../bloc/category_bloc.dart';
 import '../bloc/recipe_bloc.dart';
 import 'widgets/category_check_box_widget.dart';
-import 'widgets/session_menu_of_the_day.dart';
+import 'widgets/session_data.dart';
 
 class RecipePage extends StatelessWidget {
   const RecipePage({super.key});
@@ -35,7 +37,7 @@ class RecipePageDesktop extends StatefulWidget {
 
 class _RecipePageDesktopState extends State<RecipePageDesktop> {
   late final RecipeBloc _blocRecipe;
-  late final CategoryBloc _blocCategory;
+  // late final CategoryBloc _blocCategory;
   TextEditingController controller = TextEditingController();
 
   @override
@@ -43,9 +45,13 @@ class _RecipePageDesktopState extends State<RecipePageDesktop> {
     // TODO: implement initState
     super.initState();
     _blocRecipe = Modular.get<RecipeBloc>();
-    _blocCategory = Modular.get<CategoryBloc>();
-    _blocRecipe.add(LoadGenericBlocEvent<RecipeEvent>());
-    _blocCategory.add(LoadGenericBlocEvent<CategoryEvent>());
+    _blocRecipe.add(
+      LoadGenericPaginatedBlocEvent<RecipeEvent>(
+        params: const {
+          "page": 1,
+        },
+      ),
+    );
   }
 
   @override
@@ -57,112 +63,146 @@ class _RecipePageDesktopState extends State<RecipePageDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    // final ctrl = Get.find<TextFieldController>();
+    // final TextFieldController textFieldController =
+    //     Get.put(TextFieldController());
+
     return GlobalScaffoldWidget(
-      controller: controller,
-      body: BlocBuilder<RecipeBloc, GenericBlocState<RecipeState>>(
+        controller: controller,
         bloc: _blocRecipe,
-        builder: (context, state) {
-          if (state is GenericBlocLoadingState<RecipeState>) {
-            return const LoadingStateWidget();
-          } else if (state
-              is GenericBlocLoadedState<RecipeState, RecipeEntity>) {
-            return Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal:
-                        Responsive.maxWidthScreen(context) < 1500 ? 20 : 120,
-                    vertical: 50),
-                child: Responsive.maxWidthScreen(context) > 1500
-                    ? Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              padding: const EdgeInsets.only(right: 50),
-                              color: Colors.transparent,
-                              height: 869,
-                              child: CategoryCheckBoxWidget(
-                                categoryBloc: _blocCategory,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: Column(
-                              children: [
-                                SessionMenuOfTheDay(
-                                  text: 'Cardápio do dia',
-                                  subText:
-                                      'Pratos do dia para aprender a fazer de forma fácil e pratica- clique em ver mais para outros opções',
-                                  list: state.entityList,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      )
-                    : const SizedBox()
-                // : Column(
-                //     children: [
-                //       Container(
-                //         padding: const EdgeInsets.symmetric(horizontal: 60),
-                //         color: Colors.transparent,
-                //         // height: 869,
-                //         child: Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: [
-                //             Text(
-                //               'Filtrar por tipo',
-                //               style: theme.textTheme.bodyLarge!
-                //                   .copyWith(fontWeight: FontWeight.bold),
-                //             ),
-                //             const Text('Categorias tipos'),
-                //             const SizedBox(
-                //               height: 20,
-                //             ),
-                //             Wrap(
-                //               children: listCheckBox,
-                //             )
-                //           ],
-                //         ),
-                //       ),
-                //       Container(
-                //         color: Colors.transparent,
-                //         child: Wrap(
-                //           // runAlignment: WrapAlignment.spaceBetween,
-                //           alignment: WrapAlignment.spaceBetween,
-                //           spacing: 50,
-                //           runSpacing: 20,
-                //           // alignment: WrapAlignment.spaceAround,
-                //           // runSpacing: 10,
-                //           children:
-                //               List.generate(state.entityList.length, (index) {
-                //             RecipeEntity recipe = state.entityList[index];
-                //             return CardWidget(
-                //               image: NetworkImage(
-                //                   '${BaseUrlApi.baseUrlMedia}${recipe.imageUrl}'),
-                //               name: recipe.name,
-                //               duration: recipe.timeToPrepare.toString(),
-                //               category: recipe.category,
-                //             );
-                //           }),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                );
-          } else if (state is GenericBlocErrorState<RecipeState>) {
-            return Container(
-              padding: const EdgeInsets.symmetric(vertical: 120),
-              child: ErrorStateWidget(
-                message: state.message,
-              ),
-            );
-          }
-          return const SizedBox();
-        },
-      ),
-    );
+        body: Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: Responsive.maxWidthScreen(context) < 1500 ? 20 : 120,
+              vertical: 50),
+          child: Responsive.maxWidthScreen(context) > 1500
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        padding: const EdgeInsets.only(right: 50),
+                        color: Colors.transparent,
+                        height: 869,
+                        child: const CategoryCheckBoxWidget(),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: SessionMenuOfTheDay(
+                        blocRecipe: _blocRecipe,
+                      ),
+                    )
+                  ],
+                )
+              : const SizedBox(),
+        ));
+    //   body: BlocBuilder<RecipeBloc, GenericBlocState<RecipeState>>(
+    //     bloc: _blocRecipe,
+    //     builder: (context, state) {
+    //       if (state is GenericBlocLoadingState<RecipeState>) {
+    //         return const LoadingTest();
+    //       }
+    //       // else if(state is RecipeStateLoadedState){
+
+    //       // }
+    //       else if (state is GenericBlocLoadedState<RecipeState, RecipeEntity>) {
+    //         return Container(
+    //             padding: EdgeInsets.symmetric(
+    //                 horizontal:
+    //                     Responsive.maxWidthScreen(context) < 1500 ? 20 : 120,
+    //                 vertical: 50),
+    //             child: Responsive.maxWidthScreen(context) > 1500
+    //                 ? Row(
+    //                     crossAxisAlignment: CrossAxisAlignment.start,
+    //                     children: <Widget>[
+    //                       Expanded(
+    //                         flex: 1,
+    //                         child: Container(
+    //                           padding: const EdgeInsets.only(right: 50),
+    //                           color: Colors.transparent,
+    //                           height: 869,
+    //                           child: const CategoryCheckBoxWidget(),
+    //                         ),
+    //                       ),
+    //                       Expanded(
+    //                         flex: 4,
+    //                         child: Column(
+    //                           children: [
+    //                             SessionMenuOfTheDay(
+    //                               text: 'Cardápio do dia',
+    //                               subText:
+    //                                   'Pratos do dia para aprender a fazer de forma fácil e pratica- clique em ver mais para outros opções',
+    //                               list: state.entityList,
+    //                             ),
+    //                           ],
+    //                         ),
+    //                       ),
+    //                     ],
+    //                   )
+    //                 : const SizedBox()
+    //             // : Column(
+    //             //     children: [
+    //             //       Container(
+    //             //         padding: const EdgeInsets.symmetric(horizontal: 60),
+    //             //         color: Colors.transparent,
+    //             //         // height: 869,
+    //             //         child: Column(
+    //             //           crossAxisAlignment: CrossAxisAlignment.start,
+    //             //           children: [
+    //             //             Text(
+    //             //               'Filtrar por tipo',
+    //             //               style: theme.textTheme.bodyLarge!
+    //             //                   .copyWith(fontWeight: FontWeight.bold),
+    //             //             ),
+    //             //             const Text('Categorias tipos'),
+    //             //             const SizedBox(
+    //             //               height: 20,
+    //             //             ),
+    //             //             Wrap(
+    //             //               children: listCheckBox,
+    //             //             )
+    //             //           ],
+    //             //         ),
+    //             //       ),
+    //             //       Container(
+    //             //         color: Colors.transparent,
+    //             //         child: Wrap(
+    //             //           // runAlignment: WrapAlignment.spaceBetween,
+    //             //           alignment: WrapAlignment.spaceBetween,
+    //             //           spacing: 50,
+    //             //           runSpacing: 20,
+    //             //           // alignment: WrapAlignment.spaceAround,
+    //             //           // runSpacing: 10,
+    //             //           children:
+    //             //               List.generate(state.entityList.length, (index) {
+    //             //             RecipeEntity recipe = state.entityList[index];
+    //             //             return CardWidget(
+    //             //               image: NetworkImage(
+    //             //                   '${BaseUrlApi.baseUrlMedia}${recipe.imageUrl}'),
+    //             //               name: recipe.name,
+    //             //               duration: recipe.timeToPrepare.toString(),
+    //             //               category: recipe.category,
+    //             //             );
+    //             //           }),
+    //             //         ),
+    //             //       ),
+    //             //     ],
+    //             //   ),
+    //             );
+    //       } else if (state is GenericBlocErrorState<RecipeState>) {
+    //         return Container(
+    //           padding: const EdgeInsets.symmetric(vertical: 120),
+    //           child: ErrorStateWidget(
+    //             message: state.message,
+    //           ),
+    //         );
+    //       }
+    //       return const SizedBox();
+    //     },
+    //   ),
+    // );
   }
 }
 

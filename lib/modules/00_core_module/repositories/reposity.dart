@@ -20,4 +20,18 @@ class Reposity<T, R extends T> implements IRepository<T, R> {
       return left(GeneralFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<T>>> getAllPaginated(String path,
+      List<R> Function(String p1) fromJson, Map<String, dynamic> params) async {
+    try {
+      final result = await dataSourcesImpl.getPaginated(path, fromJson, params);
+      return right(result);
+    } on ServerFailure catch (_) {
+      return left(ServerFailure());
+    } catch (e) {
+      print(e);
+      return left(GeneralFailure());
+    }
+  }
 }

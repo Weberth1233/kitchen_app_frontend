@@ -9,6 +9,11 @@ class UseCase<T, Params, R extends T> implements IUseCase<T, Params, R> {
 
   @override
   Future<Either<Failure, List<T>>> call(GetAllParams<R> params) async {
-    return reposity.getAll(params.table, params.fromJson);
+    if (params.mapParams != null) {
+      return reposity.getAllPaginated(
+          params.table, params.fromJson, params.mapParams!);
+    } else {
+      return reposity.getAll(params.table, params.fromJson);
+    }
   }
 }

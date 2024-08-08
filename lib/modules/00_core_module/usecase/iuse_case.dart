@@ -16,10 +16,10 @@ class NoParams extends Params {
 
 class GetAllParams<R> extends Params {
   final String table;
-
+  final Map<String, dynamic>? mapParams;
   final List<R> Function(String p1) fromJson;
 
-  GetAllParams({required this.table, required this.fromJson});
+  GetAllParams({required this.table, required this.fromJson, this.mapParams});
 
   @override
   // TODO: implement props

@@ -24,4 +24,26 @@ class DataSources<T> implements IDatasource<T> {
       return itens;
     }
   }
+
+  @override
+  Future<List<T>> getPaginated(String path,
+      List<T> Function(String p1) fromJson, Map<String, dynamic> params) async {
+    var url = Uri.parse('${BaseUrlApi.baseUrl}$path');
+    String data = jsonEncode(params);
+    var response = await client.post(
+      url,
+      headers: {
+        'Content-Type':
+            'application/json', // Defina o tipo de conteúdo como JSON
+      },
+      body: data,
+    );
+    if (response.statusCode != 200) {
+      throw ServerException();
+    } else {
+      var responseBody = utf8.decode(response.bodyBytes);
+      List<T> itens = fromJson(responseBody);
+      return itens;
+    }
+  }
 }
