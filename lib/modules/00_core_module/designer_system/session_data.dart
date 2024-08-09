@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
 
-import '../../../../../base_url.dart';
-import '../../../../00_core_module/designer_system/cards/card_widget.dart';
-import '../../../01_domain/entities/recipe_entity.dart';
+import '../../../base_url.dart';
+import 'cards/card_widget.dart';
+import '../../recipe/01_domain/entities/recipe_entity.dart';
 
 class SessionData extends StatelessWidget {
   final List<RecipeEntity> list;

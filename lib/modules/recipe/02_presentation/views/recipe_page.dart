@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get/get.dart';
-import 'package:kitchen_app/modules/recipe/02_presentation/controllers/text_field_controller.dart';
-import 'package:kitchen_app/modules/recipe/02_presentation/views/widgets/session_menu_of_the_day01.dart';
+import 'package:kitchen_app/modules/recipe/02_presentation/views/widgets/session_random_recipe.dart';
 import '../../../00_core_module/bloc/generic_bloc_event.dart';
 import '../../../00_core_module/bloc/generic_bloc_state.dart';
 import '../../../00_core_module/designer_system/global_scaffold_widget.dart';
@@ -11,10 +10,9 @@ import '../../../00_core_module/designer_system/states_widgets/error_state_widge
 import '../../../00_core_module/designer_system/states_widgets/loading_state_widget.dart';
 import '../../../00_core_module/utils/responsive.dart';
 import '../../01_domain/entities/recipe_entity.dart';
-import '../bloc/category_bloc.dart';
 import '../bloc/recipe_bloc.dart';
 import 'widgets/category_check_box_widget.dart';
-import 'widgets/session_data.dart';
+import 'widgets/session_menu_of_the_day.dart';
 
 class RecipePage extends StatelessWidget {
   const RecipePage({super.key});
@@ -85,13 +83,28 @@ class _RecipePageDesktopState extends State<RecipePageDesktop> {
                         padding: const EdgeInsets.only(right: 50),
                         color: Colors.transparent,
                         height: 869,
-                        child: const CategoryCheckBoxWidget(),
+                        child: CategoryCheckBoxWidget(
+                          blocRecipe: _blocRecipe,
+                        ),
                       ),
                     ),
                     Expanded(
                       flex: 5,
-                      child: SessionMenuOfTheDay(
-                        blocRecipe: _blocRecipe,
+                      child: Column(
+                        children: [
+                          SessionMenuOfTheDay(
+                            text: 'Cardápio do dia',
+                            subText:
+                                'Pratos do dia para aprender a fazer de forma fácil e pratica- clique em ver mais para outros opções',
+                            blocRecipe: _blocRecipe,
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          // SessionRandomRecipe(
+                          //   bloc: _blocRecipe,
+                          // )
+                        ],
                       ),
                     )
                   ],
@@ -248,39 +261,5 @@ class _RecipePageMobileState extends State<RecipePageMobile> {
         },
       ),
     );
-  }
-}
-
-class RowCheckBox extends StatelessWidget {
-  final String text;
-  final void Function(bool?)? onChanged;
-  final bool? value;
-  const RowCheckBox({
-    super.key,
-    required this.text,
-    this.onChanged,
-    this.value = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Text(
-            text,
-            style: theme.textTheme.bodySmall,
-          ),
-        ),
-        Checkbox(
-          value: value,
-          onChanged: onChanged,
-          activeColor: Colors.green,
-        ),
-      ],
-    ).paddingOnly(bottom: 12);
   }
 }

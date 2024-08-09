@@ -34,4 +34,18 @@ class Reposity<T, R extends T> implements IRepository<T, R> {
       return left(GeneralFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, T>> getEntity(
+      String path, R Function(Map<String, dynamic> json) fromJson) async {
+    try {
+      final result = await dataSourcesImpl.getEntity(path, fromJson);
+      return right(result);
+    } on ServerFailure catch (_) {
+      return left(ServerFailure());
+    } catch (e) {
+      print(e);
+      return left(GeneralFailure());
+    }
+  }
 }

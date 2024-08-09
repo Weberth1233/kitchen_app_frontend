@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../00_core_module/bloc/generic_bloc_state.dart';
 import '../../../../00_core_module/designer_system/states_widgets/error_state_widget.dart';
 import '../../../../00_core_module/designer_system/states_widgets/loading_state_widget.dart';
+import '../../../../00_core_module/designer_system/states_widgets/no_data_widget.dart';
 import '../../../../00_core_module/utils/responsive.dart';
 import '../../../01_domain/entities/recipe_entity.dart';
 import '../../bloc/recipe_bloc.dart';
-import 'session_data.dart';
+import '../../../../00_core_module/designer_system/session_data.dart';
 
 class SessionMenuOfTheDay extends StatefulWidget {
   final RecipeBloc blocRecipe;
-  const SessionMenuOfTheDay({super.key, required this.blocRecipe});
+  final String text;
+  final String subText;
+  const SessionMenuOfTheDay(
+      {super.key,
+      required this.blocRecipe,
+      required this.text,
+      required this.subText});
 
   @override
   State<SessionMenuOfTheDay> createState() => _SessionMenuOfTheDayState();
@@ -28,9 +34,8 @@ class _SessionMenuOfTheDayState extends State<SessionMenuOfTheDay> {
         } else if (state is GenericBlocLoadedState<RecipeState, RecipeEntity>) {
           return Responsive.maxWidthScreen(context) > 1500
               ? SessionData(
-                  text: 'Cardápio do dia',
-                  subText:
-                      'Pratos do dia para aprender a fazer de forma fácil e pratica- clique em ver mais para outros opções',
+                  text: widget.text,
+                  subText: widget.subText,
                   list: state.entityList,
                 )
               : const SizedBox();
@@ -41,6 +46,8 @@ class _SessionMenuOfTheDayState extends State<SessionMenuOfTheDay> {
               message: state.message,
             ),
           );
+        } else if (state is GenericBlocNoDataState<RecipeState>) {
+          return const NoDataWidget();
         }
         return const SizedBox();
       },

@@ -1,8 +1,16 @@
 abstract class IDatasource<T>
-    implements IGetDatasource<T>, IGetPaginationDatasource<T> {}
+    implements
+        IGetDatasource<T>,
+        IGetPaginationDatasource<T>,
+        IGetDatasourceEntity<T> {}
 
 abstract class IGetDatasource<T> {
   Future<List<T>> get(String path, List<T> Function(String) fromJson);
+}
+
+abstract class IGetDatasourceEntity<T> {
+  Future<T> getEntity(
+      String path, T Function(Map<String, dynamic> json) fromJson);
 }
 
 abstract class IGetPaginationDatasource<T> {

@@ -12,7 +12,7 @@ class DataSources<T> implements IDatasource<T> {
 
   @override
   Future<List<T>> get(String path, List<T> Function(String p1) fromJson) async {
-    var url = Uri.parse('${BaseUrlApi.baseUrl}$path/');
+    var url = Uri.parse('${BaseUrlApi.baseUrl}$path');
     var response = await client.get(
       url,
     );
@@ -44,6 +44,23 @@ class DataSources<T> implements IDatasource<T> {
       var responseBody = utf8.decode(response.bodyBytes);
       List<T> itens = fromJson(responseBody);
       return itens;
+    }
+  }
+
+  @override
+  Future<T> getEntity(
+      String path, T Function(Map<String, dynamic> json) fromJson) async {
+    var url = Uri.parse('${BaseUrlApi.baseUrl}$path');
+    var response = await client.get(
+      url,
+    );
+    if (response.statusCode != 200) {
+      throw ServerException();
+    } else {
+      var responseBody = utf8.decode(response.bodyBytes);
+      T item = json.decode(responseBody).map((x) => fromJson(x));
+
+      return item;
     }
   }
 }

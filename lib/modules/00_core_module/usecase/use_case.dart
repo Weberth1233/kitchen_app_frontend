@@ -16,4 +16,9 @@ class UseCase<T, Params, R extends T> implements IUseCase<T, Params, R> {
       return reposity.getAll(params.table, params.fromJson);
     }
   }
+
+  @override
+  Future<Either<Failure, T>> entity(GetEntityParams<R> params) {
+    return reposity.getEntity(params.table, params.fromJson);
+  }
 }

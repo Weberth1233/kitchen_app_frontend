@@ -12,6 +12,10 @@ class GenericBlocInitialState<R> extends GenericBlocState<R> {
   GenericBlocInitialState();
 }
 
+class GenericBlocNoDataState<R> extends GenericBlocState<R> {
+  GenericBlocNoDataState();
+}
+
 class GenericBlocLoadingState<R> extends GenericBlocState<R> {
   GenericBlocLoadingState();
 }
@@ -24,6 +28,16 @@ class GenericBlocLoadedState<R, T> extends GenericBlocState<R> {
   @override
   // TODO: implement props
   List<Object?> get props => [entityList];
+}
+
+class GenericBlocLoadedEntityState<R, T> extends GenericBlocState<R> {
+  final T entity;
+
+  GenericBlocLoadedEntityState({required this.entity});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [entity];
 }
 
 class GenericBlocErrorState<R> extends GenericBlocState<R> {

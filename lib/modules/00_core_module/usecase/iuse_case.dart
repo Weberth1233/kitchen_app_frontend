@@ -4,6 +4,7 @@ import '../failures/failures.dart';
 
 abstract class IUseCase<T, Params, R> {
   Future<Either<Failure, List<T>>> call(GetAllParams<R> params);
+  Future<Either<Failure, T>> entity(GetEntityParams<R> params);
 }
 
 abstract class Params extends Equatable {}
@@ -20,6 +21,17 @@ class GetAllParams<R> extends Params {
   final List<R> Function(String p1) fromJson;
 
   GetAllParams({required this.table, required this.fromJson, this.mapParams});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [table, fromJson];
+}
+
+class GetEntityParams<R> extends Params {
+  final String table;
+  final R Function(Map<String, dynamic> json) fromJson;
+
+  GetEntityParams({required this.table, required this.fromJson});
 
   @override
   // TODO: implement props

@@ -1,11 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:kitchen_app/modules/recipe/00_data/models/category_model.dart';
-import 'package:kitchen_app/modules/recipe/00_data/models/step_model.dart';
-import 'package:kitchen_app/modules/recipe/01_domain/entities/recipe_entity.dart';
-
+import '../../01_domain/entities/recipe_entity.dart';
+import 'category_model.dart';
 import 'ingredient_model.dart';
+import 'step_model.dart';
 
 String recipeModelListToJson(List<RecipeModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
