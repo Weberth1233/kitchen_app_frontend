@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:get/get.dart';
-import 'package:kitchen_app/modules/recipe/02_presentation/views/widgets/session_random_recipe.dart';
 import '../../../00_core_module/bloc/generic_bloc_event.dart';
 import '../../../00_core_module/bloc/generic_bloc_state.dart';
 import '../../../00_core_module/designer_system/global_scaffold_widget.dart';
@@ -13,6 +11,7 @@ import '../../01_domain/entities/recipe_entity.dart';
 import '../bloc/recipe_bloc.dart';
 import 'widgets/category_check_box_widget.dart';
 import 'widgets/session_menu_of_the_day.dart';
+import 'widgets/session_random_recipe.dart';
 
 class RecipePage extends StatelessWidget {
   const RecipePage({super.key});
@@ -44,11 +43,7 @@ class _RecipePageDesktopState extends State<RecipePageDesktop> {
     super.initState();
     _blocRecipe = Modular.get<RecipeBloc>();
     _blocRecipe.add(
-      LoadGenericPaginatedBlocEvent<RecipeEvent>(
-        params: const {
-          "page": 1,
-        },
-      ),
+      LoadGenericBlocEvent<RecipeEvent>(),
     );
   }
 
@@ -72,7 +67,7 @@ class _RecipePageDesktopState extends State<RecipePageDesktop> {
           padding: EdgeInsets.symmetric(
               horizontal: Responsive.maxWidthScreen(context) < 1500 ? 20 : 120,
               vertical: 50),
-          child: Responsive.maxWidthScreen(context) > 1500
+          child: Responsive.maxWidthScreen(context) > 1000
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,9 +96,9 @@ class _RecipePageDesktopState extends State<RecipePageDesktop> {
                           const SizedBox(
                             height: 30,
                           ),
-                          // SessionRandomRecipe(
-                          //   bloc: _blocRecipe,
-                          // )
+                          SessionRandomRecipe(
+                            bloc: _blocRecipe,
+                          )
                         ],
                       ),
                     )

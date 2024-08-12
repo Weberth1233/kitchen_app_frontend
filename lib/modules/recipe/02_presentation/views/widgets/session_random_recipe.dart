@@ -22,11 +22,18 @@ class SessionRandomRecipe extends StatefulWidget {
 class _SessionRandomRecipeState extends State<SessionRandomRecipe> {
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     widget.bloc.add(
       RecipeRandomEvent<RecipeEvent>(),
     );
+    // TODO: implement initState
+    super.initState();
+    //  widget.blocRecipe.add(
+    //                         RecipeByCategoryEvent<RecipeEvent>(
+    //                           idCategory: _checkBoxModels[index]
+    //                               .value
+    //                               .categoryEntity
+    //                               .id,
+    //                         )
   }
 
   @override
@@ -103,7 +110,9 @@ class _SessionRandomRecipeState extends State<SessionRandomRecipe> {
         } else if (state is GenericBlocNoDataState<RecipeEntity>) {
           return const NoDataWidget();
         }
-        return const SizedBox();
+        return const SizedBox(
+          child: Text('djksjdkjk'),
+        );
       },
     );
   }

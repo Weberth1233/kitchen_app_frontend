@@ -32,7 +32,7 @@ class _SessionMenuOfTheDayState extends State<SessionMenuOfTheDay> {
         if (state is GenericBlocLoadingState<RecipeState>) {
           return const LoadingStateWidget();
         } else if (state is GenericBlocLoadedState<RecipeState, RecipeEntity>) {
-          return Responsive.maxWidthScreen(context) > 1500
+          return Responsive.maxWidthScreen(context) > 1000
               ? SessionData(
                   text: widget.text,
                   subText: widget.subText,

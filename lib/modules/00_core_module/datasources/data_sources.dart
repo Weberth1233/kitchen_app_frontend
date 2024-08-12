@@ -58,8 +58,8 @@ class DataSources<T> implements IDatasource<T> {
       throw ServerException();
     } else {
       var responseBody = utf8.decode(response.bodyBytes);
-      T item = json.decode(responseBody).map((x) => fromJson(x));
-
+      var decodedJson = json.decode(responseBody) as Map<String, dynamic>;
+      T item = fromJson(decodedJson);
       return item;
     }
   }
