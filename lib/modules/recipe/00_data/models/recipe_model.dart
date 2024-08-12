@@ -41,14 +41,15 @@ class RecipeModel extends RecipeEntity {
     CategoryModel category = CategoryModel.fromJson(categoryJson);
 
     return RecipeModel(
-        id: json['id'],
-        name: json['name'],
-        category: category,
-        imageUrl: json['image_url'],
-        ingredientsModel: ingredientItems,
-        stepsModel: stepItems,
-        timeToPrepare: json['time_to_prepare'],
-        date: json['created_at']);
+      id: json['id'] ?? '',
+      name: json['name'] ?? '',
+      category: category,
+      imageUrl: json['image_url'] ?? '',
+      ingredientsModel: ingredientItems,
+      stepsModel: stepItems,
+      timeToPrepare: json['time_to_prepare'] ?? '',
+      date: json['created_at'] ?? '',
+    );
   }
 
   Map<String, dynamic> toJson() {

@@ -6,24 +6,26 @@ import '../../../../00_core_module/designer_system/states_widgets/loading_state_
 import '../../../../00_core_module/designer_system/states_widgets/no_data_widget.dart';
 import '../../../../00_core_module/utils/responsive.dart';
 import '../../../01_domain/entities/recipe_entity.dart';
-import '../../bloc/recipe_bloc.dart';
+import '../../bloc/recipe_bloc/recipe_bloc_general.dart';
 import '../../../../00_core_module/designer_system/session_data.dart';
+import '../../bloc/recipe_state.dart';
 
-class SessionMenuOfTheDay extends StatefulWidget {
+class SessionMenuOfTheDayRecipe extends StatefulWidget {
   final RecipeBloc blocRecipe;
   final String text;
   final String subText;
-  const SessionMenuOfTheDay(
+  const SessionMenuOfTheDayRecipe(
       {super.key,
       required this.blocRecipe,
       required this.text,
       required this.subText});
 
   @override
-  State<SessionMenuOfTheDay> createState() => _SessionMenuOfTheDayState();
+  State<SessionMenuOfTheDayRecipe> createState() =>
+      _SessionMenuOfTheDayRecipeState();
 }
 
-class _SessionMenuOfTheDayState extends State<SessionMenuOfTheDay> {
+class _SessionMenuOfTheDayRecipeState extends State<SessionMenuOfTheDayRecipe> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RecipeBloc, GenericBlocState<RecipeState>>(

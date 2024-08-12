@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import '../../../00_core_module/bloc/generic_bloc_event.dart';
-import '../../../00_core_module/bloc/generic_bloc_state.dart';
-import '../../../00_core_module/designer_system/global_scaffold_widget.dart';
-import '../../../00_core_module/designer_system/states_widgets/error_state_widget.dart';
-import '../../../00_core_module/designer_system/states_widgets/loading_state_widget.dart';
-import '../../../00_core_module/utils/responsive.dart';
-import '../../01_domain/entities/recipe_entity.dart';
-import '../bloc/recipe_bloc.dart';
-import 'widgets/category_check_box_widget.dart';
-import 'widgets/session_menu_of_the_day.dart';
-import 'widgets/session_random_recipe.dart';
+import '../../../../00_core_module/bloc/generic_bloc_event.dart';
+import '../../../../00_core_module/bloc/generic_bloc_state.dart';
+import '../../../../00_core_module/designer_system/global_scaffold_widget.dart';
+import '../../../../00_core_module/designer_system/states_widgets/error_state_widget.dart';
+import '../../../../00_core_module/designer_system/states_widgets/loading_state_widget.dart';
+import '../../../../00_core_module/utils/responsive.dart';
+import '../../../01_domain/entities/recipe_entity.dart';
+import '../../bloc/recipe_bloc/recipe_bloc_general.dart';
+import '../../bloc/recipe_event.dart';
+import '../../bloc/recipe_state.dart';
+import '../widgets/category_check_box_widget.dart';
+import '../widgets/session_menu_of_the_day_recipe.dart';
+import '../widgets/session_menu_recipe_category_drinks.dart';
+import '../widgets/session_random_recipe.dart';
 
 class RecipePage extends StatelessWidget {
   const RecipePage({super.key});
@@ -43,8 +46,10 @@ class _RecipePageDesktopState extends State<RecipePageDesktop> {
     super.initState();
     _blocRecipe = Modular.get<RecipeBloc>();
     _blocRecipe.add(
-      LoadGenericBlocEvent<RecipeEvent>(),
-    );
+        // LoadGenericBlocEvent<RecipeEvent>(),
+        LoadGenericPaginatedBlocEvent(params: const {
+      'page': 1,
+    }));
   }
 
   @override
@@ -56,10 +61,6 @@ class _RecipePageDesktopState extends State<RecipePageDesktop> {
 
   @override
   Widget build(BuildContext context) {
-    // final ctrl = Get.find<TextFieldController>();
-    // final TextFieldController textFieldController =
-    //     Get.put(TextFieldController());
-
     return GlobalScaffoldWidget(
         controller: controller,
         bloc: _blocRecipe,
@@ -87,18 +88,20 @@ class _RecipePageDesktopState extends State<RecipePageDesktop> {
                       flex: 5,
                       child: Column(
                         children: [
-                          SessionMenuOfTheDay(
-                            text: 'Cardápio do dia',
+                          SessionMenuOfTheDayRecipe(
+                            text: 'Pratos Para Todos os Gostos',
                             subText:
-                                'Pratos do dia para aprender a fazer de forma fácil e pratica- clique em ver mais para outros opções',
+                                'Aprenda a fazer receitas saborosas e práticas em poucos minutos. Clique em "ver mais" para mais sugestões!',
                             blocRecipe: _blocRecipe,
                           ),
                           const SizedBox(
                             height: 30,
                           ),
-                          SessionRandomRecipe(
-                            bloc: _blocRecipe,
-                          )
+                          const SessionRandomRecipe(),
+                          const SizedBox(
+                            height: 80,
+                          ),
+                          const SessionMenuRecipeDrinks(),
                         ],
                       ),
                     )

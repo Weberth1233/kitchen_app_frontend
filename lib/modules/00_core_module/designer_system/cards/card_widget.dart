@@ -25,11 +25,12 @@ class CardWidget extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.black54,
-                    blurRadius: 90,
-                    offset: Offset(5, 0),
+                    blurRadius: 20,
+                    offset: Offset(2, 4),
                     spreadRadius: 0.1,
                     blurStyle: BlurStyle.normal,
                   )
@@ -41,6 +42,9 @@ class CardWidget extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
           SizedBox(
             height: 120,
             width: double.infinity,
@@ -49,10 +53,11 @@ class CardWidget extends StatelessWidget {
               children: [
                 Text(
                   name,
-                  style: theme.textTheme.headlineMedium,
+                  style: theme.textTheme.headlineSmall!
+                      .copyWith(fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  'Cerca de $duration minutos',
+                  'Total de tempo: $duration minutos',
                   style: theme.textTheme.bodySmall,
                 ),
                 Text(

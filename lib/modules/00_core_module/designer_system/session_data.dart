@@ -1,5 +1,7 @@
 //session menu of the day
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/get_utils.dart';
 
 import '../../../base_url.dart';
@@ -19,6 +21,8 @@ class SessionData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    double size = MediaQuery.of(context).size.width;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -27,27 +31,23 @@ class SessionData extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(
-                  // 'Cardapio do dia',
-                  text,
-                  style: theme.textTheme.headlineSmall!
-                      .copyWith(fontWeight: FontWeight.w600, shadows: [
-                    // const Shadow(
-                    //   offset: Offset(3.0, 3.0),
-                    //   blurRadius: 3.0,
-                    //   color: Color.fromRGBO(10, 10, 10, 0.2),
-                    // )
-                  ]),
-                ),
+                child: Text(text,
+                    style: theme.textTheme.headlineSmall!
+                        .copyWith(fontWeight: FontWeight.w500)),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Modular.to.navigate('/recipe_detail');
+                },
                 child: Text(
                   'Ver mais...',
                   style: theme.textTheme.bodySmall,
                 ),
               )
             ],
+          ),
+          const SizedBox(
+            height: 15,
           ),
           Text(
             // 'Pratos do dia para aprender a fazer de forma fácil e pratica- clique em ver mais para outros opções',
@@ -56,19 +56,30 @@ class SessionData extends StatelessWidget {
                 .copyWith(color: theme.colorScheme.outline),
           ),
           const SizedBox(
-            height: 20,
+            height: 25,
           ),
-          Row(
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 10,
             children: List.generate(list.length, (index) {
               RecipeEntity recipe = list[index];
-              return Expanded(
-                child: CardWidget(
-                  image: NetworkImage(
-                      '${BaseUrlApi.baseUrlMedia}${recipe.imageUrl}'),
-                  name: recipe.name,
-                  duration: recipe.timeToPrepare.toString(),
-                  category: recipe.category.name,
-                ).paddingOnly(right: 10),
+              return SizedBox(
+                width: size <= 1400 ? 190 : 320,
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      Modular.to.pushNamed('/recipe_detail/${recipe.id}');
+                    },
+                    child: CardWidget(
+                      image: NetworkImage(
+                          '${BaseUrlApi.baseUrlMedia}${recipe.imageUrl}'),
+                      name: recipe.name,
+                      duration: recipe.timeToPrepare.toString(),
+                      category: recipe.category.name,
+                    ).paddingOnly(right: 10),
+                  ),
+                ),
               );
             }),
           ),

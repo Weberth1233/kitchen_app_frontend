@@ -8,7 +8,7 @@ import '../00_core_module/usecase/iuse_case.dart';
 import '../00_core_module/usecase/use_case.dart';
 import '00_data/models/category_model.dart';
 import '01_domain/entities/category_entity.dart';
-import '02_presentation/bloc/category_bloc.dart';
+import '02_presentation/bloc/category_bloc/category_bloc.dart';
 
 class CategoryModule extends Module {
   @override

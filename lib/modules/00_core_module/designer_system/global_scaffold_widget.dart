@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:kitchen_app/modules/00_core_module/utils/responsive.dart';
-import 'package:kitchen_app/modules/recipe/02_presentation/controllers/text_field_controller.dart';
 
-import '../../recipe/02_presentation/bloc/recipe_bloc.dart';
+import '../../recipe/02_presentation/bloc/recipe_bloc/recipe_bloc_general.dart';
+import '../../recipe/02_presentation/bloc/recipe_event.dart';
 import '../bloc/generic_bloc_event.dart';
+import '../utils/responsive.dart';
 
 class GlobalScaffoldWidget extends StatelessWidget {
   final Widget body;
   final Color? backgroundColor;
-  final RecipeBloc bloc;
+  final RecipeBloc? bloc;
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   const GlobalScaffoldWidget({
     super.key,
     required this.body,
     this.backgroundColor,
-    required this.controller,
-    required this.bloc,
+    this.controller,
+    this.bloc,
   });
 
   @override
@@ -27,10 +26,12 @@ class GlobalScaffoldWidget extends StatelessWidget {
       body: ListView(
         children: [
           const TopHeader(),
-          BottomHeader(
-            controller: controller,
-            bloc: bloc,
-          ),
+          bloc != null
+              ? BottomHeader(
+                  controller: controller!,
+                  bloc: bloc!,
+                )
+              : const SizedBox(),
           body,
         ],
       ),
@@ -108,7 +109,7 @@ class BottomHeader extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: 340,
+      height: 400,
       padding: const EdgeInsets.symmetric(horizontal: 25),
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -150,9 +151,13 @@ class BottomHeader extends StatelessWidget {
                 // ctrl.writingText(value);
               },
               style: TextStyle(color: theme.colorScheme.primary),
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                suffixIcon: Icon(Icons.close),
+              decoration: InputDecoration(
+                prefixIcon: Container(
+                    padding: const EdgeInsets.only(left: 12),
+                    child: const Icon(Icons.search)),
+                suffixIcon: Container(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: const Icon(Icons.close)),
               ),
             ),
           ),

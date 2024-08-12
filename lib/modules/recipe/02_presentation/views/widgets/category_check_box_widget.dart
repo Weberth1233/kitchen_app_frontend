@@ -8,8 +8,8 @@ import '../../../../00_core_module/bloc/generic_bloc_state.dart';
 import '../../../../00_core_module/designer_system/states_widgets/error_state_widget.dart';
 import '../../../../00_core_module/designer_system/states_widgets/loading_state_widget.dart';
 import '../../../01_domain/entities/category_entity.dart';
-import '../../bloc/category_bloc.dart';
-import '../../bloc/recipe_bloc.dart';
+import '../../bloc/category_bloc/category_bloc.dart';
+import '../../bloc/recipe_bloc/recipe_bloc_general.dart';
 
 class CheckBoxModel {
   CategoryEntity categoryEntity;
@@ -46,6 +46,7 @@ class _CategoryCheckBoxWidgetState extends State<CategoryCheckBoxWidget> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    List<int> ids = [];
 
     return BlocBuilder<CategoryBloc, GenericBlocState<CategoryState>>(
       bloc: _blocCategory,
@@ -75,6 +76,7 @@ class _CategoryCheckBoxWidgetState extends State<CategoryCheckBoxWidget> {
                 height: 20,
               ),
               Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(
                   state.entityList.length,
                   (index) {
@@ -86,22 +88,28 @@ class _CategoryCheckBoxWidgetState extends State<CategoryCheckBoxWidget> {
                           //Acesso o objeto Category e atualizo o checked para o valor do value selecionado pelo usuário
                           _checkBoxModels[index].update((category) {
                             category!.checked = value!;
-                            // print(checkBox!.checked);
-                          });
-
-                          widget.blocRecipe.add(
-                            RecipeByCategoryEvent<RecipeEvent>(
-                              idCategory: _checkBoxModels[index]
+                            if (category.checked) {
+                              ids.add(_checkBoxModels[index]
                                   .value
                                   .categoryEntity
-                                  .id,
-                            ),
-                          );
+                                  .id);
+                            } else {
+                              ids.remove(_checkBoxModels[index]
+                                  .value
+                                  .categoryEntity
+                                  .id);
+                            }
+                            // print(checkBox!.checked);
+                          });
+                          widget.blocRecipe
+                              .add(RecipeByCategoryEventAll(categorys: ids));
                         },
+                        // activeColor: theme.colorScheme.primary,
                         title: Text(
                           _checkBoxModels[index].value.categoryEntity.name,
                           style: theme.textTheme.bodySmall,
                         ),
+                        // secondary: Text('dsldl'),
                       );
                     });
                   },

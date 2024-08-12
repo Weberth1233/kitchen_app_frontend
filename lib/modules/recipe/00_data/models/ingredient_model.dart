@@ -5,7 +5,7 @@ class IngredientModel extends IngredientEntity {
 
   factory IngredientModel.fromJson(Map<String, dynamic> json) {
     return IngredientModel(
-      name: json['name'],
+      name: json['name'] ?? '',
       moreInfo: json['more_info'] ?? '',
     );
   }

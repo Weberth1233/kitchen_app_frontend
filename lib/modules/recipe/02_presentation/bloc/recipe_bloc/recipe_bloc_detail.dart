@@ -3,27 +3,29 @@ import 'package:kitchen_app/modules/00_core_module/usecase/iuse_case.dart';
 import 'package:kitchen_app/modules/00_core_module/utils/paths_name.dart';
 import 'package:kitchen_app/modules/recipe/00_data/models/recipe_model.dart';
 import 'package:kitchen_app/modules/recipe/01_domain/entities/recipe_entity.dart';
-import '../../../00_core_module/bloc/generic_bloc_event.dart';
-import '../../../00_core_module/bloc/generic_bloc_state.dart';
-import 'recipe_bloc.dart';
+import '../../../../00_core_module/bloc/generic_bloc_event.dart';
+import '../../../../00_core_module/bloc/generic_bloc_state.dart';
+import '../recipe_event.dart';
+import '../recipe_state.dart';
 
-class RecipeBlocSession
+class RecipeBlocDetail
     extends Bloc<GenericBlocEvent<RecipeEvent>, GenericBlocState<RecipeState>> {
   final IUseCase<RecipeEntity, NoParams, RecipeModel> useCase;
 
-  RecipeBlocSession({required this.useCase})
+  RecipeBlocDetail({required this.useCase})
       : super(GenericBlocInitialState<RecipeState>()) {
-   
-    on<RecipeRandomEvent<RecipeEvent>>(_onFetchedRecipeRandom);
+    on<RecipeById<RecipeEvent>>(_onFetchDetailRecipe);
   }
-  
-  Future<void> _onFetchedRecipeRandom(RecipeRandomEvent<RecipeEvent> event,
+
+  Future<void> _onFetchDetailRecipe(RecipeById<RecipeEvent> event,
       Emitter<GenericBlocState<RecipeState>> emit) async {
     emit(GenericBlocLoadingState<RecipeState>());
 
     final result = await useCase.entity(
       GetEntityParams<RecipeModel>(
-          table: PathsName.recipeRandom, fromJson: RecipeModel.fromJson),
+        table: '${PathsName.recipesDetail}${event.id}',
+        fromJson: RecipeModel.fromJson,
+      ),
     );
     result.fold(
         (failure) => emit(GenericBlocErrorState<RecipeState>(
@@ -33,6 +35,10 @@ class RecipeBlocSession
       );
     });
   }
-
 }
 
+class RecipeById<R> extends GenericBlocEvent<R> {
+  final int id;
+
+  RecipeById({required this.id});
+}
