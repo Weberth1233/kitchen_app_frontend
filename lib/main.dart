@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'modules/00_core_module/theme/theme.dart';
+import 'modules/core_module/theme/theme.dart';
 import 'modules/recipe/02_presentation/views/recipe_module.dart';
 
 void main() {

@@ -13,11 +13,12 @@ class AppTheme {
   static const Color _lightPrimaryColor = Color(0XFFFFFFFF);
   static const Color _lightSecondaryVariantColor = Color(0XFF2E5834);
   static const Color _lightTertiaryVariantColor = Color(0XFFB5101C);
+  //828282
 
   // static final Color _lightOnPrimaryColor = Colors.blueGrey.shade200;
 
   static const Color _lightTextColorVariantWhite = Color(0XFFFFFFFF);
-  static const Color _lightTextColorVariantGrey = Color(0XFF7A7676);
+  static const Color _lightTextColorVariantGrey = Color(0XFF828282);
   static const Color _lightTextColorVariantOrange = Color(0XFFC57D5D);
   static const Color _lightTextColorVariantBlack = Colors.black;
   // static final Color _darkPrimaryColor = Colors.blueGrey.shade900;
@@ -69,6 +70,11 @@ class AppTheme {
         color: _lightTextColorVariantBlack, letterSpacing: .5, fontSize: 16),
   );
 
+  static final TextStyle _lightLargeParagraphText = GoogleFonts.poppins(
+    textStyle: const TextStyle(
+        color: _lightTextColorVariantBlack, letterSpacing: .5, fontSize: 18),
+  );
+
   static final TextStyle _lightSmallText = GoogleFonts.poppins(
     textStyle: const TextStyle(
         color: _lightTextColorVariantBlack, letterSpacing: .5, fontSize: 12),
@@ -82,6 +88,7 @@ class AppTheme {
     headlineSmall: _lightHeading5Text,
     bodySmall: _lightSmallText,
     bodyMedium: _lightParagraphText,
+    bodyLarge: _lightLargeParagraphText,
   );
 
   // *****************

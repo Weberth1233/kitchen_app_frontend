@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../failures/failures.dart';
+import '../../failures/failures.dart';
 
 abstract class IRepository<T, R> {
   Future<Either<Failure, List<T>>> getAll(

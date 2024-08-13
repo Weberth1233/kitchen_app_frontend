@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../00_core_module/bloc/generic_bloc_event.dart';
-import '../../../../00_core_module/bloc/generic_bloc_state.dart';
-import '../../../../00_core_module/usecase/iuse_case.dart';
-import '../../../../00_core_module/utils/paths_name.dart';
+import '../../../../core_module/features/bloc/generic_bloc_event.dart';
+import '../../../../core_module/features/bloc/generic_bloc_state.dart';
+import '../../../../core_module/features/usecase/iuse_case.dart';
+import '../../../../core_module/utils/paths_name.dart';
 import '../../../00_data/models/category_model.dart';
 import '../../../01_domain/entities/category_entity.dart';
 

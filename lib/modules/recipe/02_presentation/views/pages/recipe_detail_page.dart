@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:kitchen_app/modules/00_core_module/designer_system/global_scaffold_widget.dart';
+import 'package:kitchen_app/modules/core_module/designer_system/global_scaffold_widget.dart';
 import '../../../../../base_url.dart';
-import '../../../../00_core_module/bloc/generic_bloc_state.dart';
-import '../../../../00_core_module/designer_system/states_widgets/error_state_widget.dart';
-import '../../../../00_core_module/designer_system/states_widgets/loading_state_widget.dart';
+import '../../../../core_module/features/bloc/generic_bloc_state.dart';
+import '../../../../core_module/designer_system/states_widgets/error_state_widget.dart';
+import '../../../../core_module/designer_system/states_widgets/loading_state_widget.dart';
 import '../../../01_domain/entities/recipe_entity.dart';
 import '../../bloc/recipe_bloc/recipe_bloc_detail.dart';
 import '../../bloc/recipe_event.dart';

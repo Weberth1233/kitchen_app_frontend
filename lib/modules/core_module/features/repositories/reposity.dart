@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import '../datasources/idata_sources.dart';
-import '../failures/failures.dart';
+import '../../failures/failures.dart';
 import 'irepository.dart';
 
 class Reposity<T, R extends T> implements IRepository<T, R> {

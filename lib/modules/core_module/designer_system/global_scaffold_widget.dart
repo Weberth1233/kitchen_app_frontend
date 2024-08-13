@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../recipe/02_presentation/bloc/recipe_bloc/recipe_bloc_general.dart';
 import '../../recipe/02_presentation/bloc/recipe_event.dart';
-import '../bloc/generic_bloc_event.dart';
+import '../features/bloc/generic_bloc_event.dart';
 import '../utils/responsive.dart';
 
 class GlobalScaffoldWidget extends StatelessWidget {

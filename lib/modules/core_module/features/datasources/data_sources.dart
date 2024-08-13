@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:kitchen_app/modules/00_core_module/exception/exceptions.dart';
-import '../../../base_url.dart';
+import '../../../../base_url.dart';
+import '../../exception/exceptions.dart';
 import 'idata_sources.dart';
 
 class DataSources<T> implements IDatasource<T> {

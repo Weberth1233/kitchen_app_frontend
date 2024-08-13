@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:kitchen_app/modules/00_core_module/designer_system/states_widgets/loading_state_widget.dart';
-import 'package:kitchen_app/modules/00_core_module/designer_system/states_widgets/no_data_widget.dart';
+import 'package:get/get.dart';
+import 'package:kitchen_app/modules/core_module/designer_system/states_widgets/loading_state_widget.dart';
+import 'package:kitchen_app/modules/core_module/designer_system/states_widgets/no_data_widget.dart';
 import 'package:kitchen_app/modules/recipe/02_presentation/bloc/recipe_bloc/recipe_bloc_random_recipe.dart';
 
 import '../../../../../base_url.dart';
-import '../../../../00_core_module/bloc/generic_bloc_state.dart';
+import '../../../../core_module/features/bloc/generic_bloc_state.dart';
 import '../../../01_domain/entities/recipe_entity.dart';
 
 import '../../bloc/recipe_event.dart';
@@ -37,6 +38,8 @@ class _SessionRandomRecipeState extends State<SessionRandomRecipe> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    Rx<bool> hover = false.obs;
+
     return BlocBuilder<RecipeBlocRandomRecipe, GenericBlocState<RecipeState>>(
       bloc: _blocRandomRecipe,
       builder: (context, state) {
@@ -84,26 +87,32 @@ class _SessionRandomRecipeState extends State<SessionRandomRecipe> {
                   children: [
                     Expanded(
                       flex: 2,
-                      child: Container(
-                        height: 400,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black54,
-                              blurRadius: 90,
-                              offset: Offset(5, 0),
-                              spreadRadius: 0.1,
-                              blurStyle: BlurStyle.normal,
-                            )
-                          ],
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              '${BaseUrlApi.baseUrlMedia}${state.entity.imageUrl}',
-                            ),
-                          ),
-                        ),
+                      child: MouseRegion(
+                        onEnter: (event) => hover.value = true,
+                        onExit: (event) => hover.value = false,
+                        child: Obx(() => Container(
+                              height: 400,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  hover.value
+                                      ? const BoxShadow(
+                                          color: Colors.black54,
+                                          blurRadius: 20,
+                                          offset: Offset(2, 0),
+                                          spreadRadius: 0.1,
+                                          blurStyle: BlurStyle.normal,
+                                        )
+                                      : const BoxShadow()
+                                ],
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    '${BaseUrlApi.baseUrlMedia}${state.entity.imageUrl}',
+                                  ),
+                                ),
+                              ),
+                            )),
                       ),
                     ),
                     const SizedBox(
@@ -136,7 +145,7 @@ class _SessionRandomRecipeState extends State<SessionRandomRecipe> {
                                 title: Text(
                                   state.entity.steps[index].description,
                                   textAlign: TextAlign.justify,
-                                  style: theme.textTheme.bodyMedium,
+                                  style: theme.textTheme.bodySmall,
                                 ),
                               );
                             }),

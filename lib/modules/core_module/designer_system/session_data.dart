@@ -21,7 +21,6 @@ class SessionData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    double size = MediaQuery.of(context).size.width;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -33,21 +32,23 @@ class SessionData extends StatelessWidget {
               Expanded(
                 child: Text(text,
                     style: theme.textTheme.headlineSmall!
-                        .copyWith(fontWeight: FontWeight.w500)),
+                        .copyWith(fontWeight: FontWeight.bold)),
               ),
               TextButton(
                 onPressed: () {
-                  Modular.to.navigate('/recipe_detail');
+                  // Modular.to.navigate('/recipe_detail');
                 },
                 child: Text(
                   'Ver mais...',
-                  style: theme.textTheme.bodySmall,
+                  style: theme.textTheme.bodySmall!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.secondary),
                 ),
               )
             ],
           ),
           const SizedBox(
-            height: 15,
+            height: 5,
           ),
           Text(
             // 'Pratos do dia para aprender a fazer de forma fácil e pratica- clique em ver mais para outros opções',
@@ -64,7 +65,7 @@ class SessionData extends StatelessWidget {
             children: List.generate(list.length, (index) {
               RecipeEntity recipe = list[index];
               return SizedBox(
-                width: size <= 1400 ? 190 : 320,
+                width: 260,
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(

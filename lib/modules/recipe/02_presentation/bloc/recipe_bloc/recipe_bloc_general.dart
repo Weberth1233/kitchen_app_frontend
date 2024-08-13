@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kitchen_app/modules/00_core_module/usecase/iuse_case.dart';
-import 'package:kitchen_app/modules/00_core_module/utils/paths_name.dart';
+import 'package:kitchen_app/modules/core_module/features/usecase/iuse_case.dart';
+import 'package:kitchen_app/modules/core_module/utils/paths_name.dart';
 import 'package:kitchen_app/modules/recipe/00_data/models/recipe_model.dart';
 import 'package:kitchen_app/modules/recipe/01_domain/entities/recipe_entity.dart';
-import '../../../../00_core_module/bloc/generic_bloc_event.dart';
-import '../../../../00_core_module/bloc/generic_bloc_state.dart';
+import '../../../../core_module/features/bloc/generic_bloc_event.dart';
+import '../../../../core_module/features/bloc/generic_bloc_state.dart';
 import '../recipe_event.dart';
 import '../recipe_state.dart';
 
@@ -80,7 +80,7 @@ class RecipeBloc
       GetAllParams<RecipeModel>(
         table: event.filter
             ? PathsName.filterNameRecipe
-            : PathsName.recentlyRecipePagination,
+            : PathsName.recipePaginationAll,
         fromJson: recipeModelFromJson,
         mapParams: event.params,
       ),

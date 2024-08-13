@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import '../failures/failures.dart';
+import '../../failures/failures.dart';
 
 abstract class IUseCase<T, Params, R> {
   Future<Either<Failure, List<T>>> call(GetAllParams<R> params);
