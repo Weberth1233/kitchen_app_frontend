@@ -1,11 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core_module/features/bloc/generic_bloc_event.dart';
 import '../../../../core_module/features/bloc/generic_bloc_state.dart';
 import '../../../../core_module/features/usecase/iuse_case.dart';
 import '../../../../core_module/utils/paths_name.dart';
 import '../../../00_data/models/category_model.dart';
 import '../../../01_domain/entities/category_entity.dart';
+import 'category_event.dart';
+import 'category_state.dart';
 
 class CategoryBloc extends Bloc<GenericBlocEvent<CategoryEvent>,
     GenericBlocState<CategoryState>> {
@@ -37,7 +38,3 @@ class CategoryBloc extends Bloc<GenericBlocEvent<CategoryEvent>,
     });
   }
 }
-
-class CategoryEvent extends GenericBlocEvent {}
-
-class CategoryState extends GenericBlocState {}
