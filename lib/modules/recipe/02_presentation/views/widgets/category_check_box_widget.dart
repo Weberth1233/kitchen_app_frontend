@@ -9,6 +9,8 @@ import '../../../../core_module/designer_system/states_widgets/error_state_widge
 import '../../../../core_module/designer_system/states_widgets/loading_state_widget.dart';
 import '../../../01_domain/entities/category_entity.dart';
 import '../../bloc/category_bloc/category_bloc.dart';
+import '../../bloc/category_bloc/category_event.dart';
+import '../../bloc/category_bloc/category_state.dart';
 import '../../bloc/recipe_bloc/recipe_bloc_general.dart';
 
 class CheckBoxModel {
