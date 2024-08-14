@@ -9,6 +9,8 @@ Tecnologias utilizas:
    - BLOc
    - GetX
  - Flutter modular(rotas e injeções)
+ - Consumo de API - utilizando pacote http
+ - Imagens animadas com lottie - https://app.lottiefiles.com/?utm_medium=web&utm_source=getting-started
 
 Dependências utilizadas:
   
@@ -34,8 +36,6 @@ Principais funcionalidades:
  - Filtro por categorias de comida:
 
 ![image](https://github.com/user-attachments/assets/a4f97dd4-18e4-48f6-9174-d9a87e905974)
-
-
 
 Designer foi adquirido a partir do figma community:
 https://www.figma.com/design/OztagHquaMtJosagGvvlic/Kitchen-Tales---A-Recipe-Sharing-Website-(Community)?node-id=0-1&t=sCItLywaFMWQniJe-0
