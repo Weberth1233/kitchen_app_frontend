@@ -1,17 +1,27 @@
-# kitchen_app
 
-A new Flutter project.
 
-## Getting Started
+Tecnologias utilizas:
+ - BackEnd - Django(API)
+ - FrontEnd - Flutter(Web)
+ - Gerenciadores de estados utilizados:
+   - BLOc
+   - GetX
+ - Flutter modular(rotas e injeções)
 
-This project is a starting point for a Flutter application.
+![image](https://github.com/user-attachments/assets/b0dc3c2f-cb73-4b2a-86de-185e4b2ff95a)Aplicação desenvolvida com Flutter:
 
-A few resources to get you started if this is your first Flutter project:
+ Arquitetura:
+  -  Clean Architecture
+  -  ![image](https://github.com/user-attachments/assets/be49ef62-5796-4aed-bf14-df3a207e1fa0)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# kitchen_app_frontend
+![image](https://github.com/user-attachments/assets/5f2b16a7-4475-494f-827d-23d26680db3a)
+
+Principais funcionalidades:
+ - Pesquisa reativa:
+   - ![image](https://github.com/user-attachments/assets/e66494f2-823b-4628-a064-49428b4a8803)
+ - Filtro por categorias de comida:
+ - ![image](https://github.com/user-attachments/assets/a4f97dd4-18e4-48f6-9174-d9a87e905974)
+
+Designer foi adquirido a partir do figma community:
+https://www.figma.com/design/OztagHquaMtJosagGvvlic/Kitchen-Tales---A-Recipe-Sharing-Website-(Community)?node-id=0-1&t=sCItLywaFMWQniJe-0
