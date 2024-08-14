@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -19,6 +21,9 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
       routerConfig: Modular.routerConfig,
+      //Adicionando scrool horizontal na web
+      scrollBehavior: const MaterialScrollBehavior()
+          .copyWith(dragDevices: {PointerDeviceKind.mouse}),
     );
   }
 }
