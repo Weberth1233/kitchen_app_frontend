@@ -12,12 +12,15 @@ Tecnologias utilizas:
  - Consumo de API - utilizando pacote http
  - Imagens animadas com lottie - https://app.lottiefiles.com/?utm_medium=web&utm_source=getting-started
 
+Arquitetura de software e princípio:
+  -  Clean Architecture
+  -  Clean code
+
 Dependências utilizadas:
   
 ![image](https://github.com/user-attachments/assets/d5d0260b-6e1c-4ea2-80c4-59fb91074b95)
 
- Arquitetura:
-  -  Clean Architecture
+
 
  ![image](https://github.com/user-attachments/assets/be49ef62-5796-4aed-bf14-df3a207e1fa0)
 
