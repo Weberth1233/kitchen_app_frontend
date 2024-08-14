@@ -4,6 +4,7 @@ import '../../recipe/02_presentation/bloc/recipe_bloc/recipe_bloc_general.dart';
 import '../../recipe/02_presentation/bloc/recipe_event.dart';
 import '../features/bloc/generic_bloc_event.dart';
 import '../utils/responsive.dart';
+import 'footer_widget.dart';
 
 class GlobalScaffoldWidget extends StatelessWidget {
   final Widget body;
@@ -33,6 +34,7 @@ class GlobalScaffoldWidget extends StatelessWidget {
                 )
               : const SizedBox(),
           body,
+          const FooterWidget()
         ],
       ),
     );

@@ -8,20 +8,19 @@ import '../../../../core_module/designer_system/states_widgets/loading_state_wid
 import '../../../../core_module/designer_system/states_widgets/no_data_widget.dart';
 import '../../../../core_module/utils/responsive.dart';
 import '../../../01_domain/entities/recipe_entity.dart';
-import '../../bloc/recipe_bloc/recipe_bloc_general.dart';
 import '../../bloc/recipe_bloc/recipe_bloc_recipes_by_category.dart';
 import '../../bloc/recipe_event.dart';
 import '../../bloc/recipe_state.dart';
 
-class SessionMenuRecipeDrinks extends StatefulWidget {
-  const SessionMenuRecipeDrinks({super.key});
+class SessionMenuRecipeCandys extends StatefulWidget {
+  const SessionMenuRecipeCandys({super.key});
 
   @override
-  State<SessionMenuRecipeDrinks> createState() =>
-      _SessionMenuRecipeDrinksState();
+  State<SessionMenuRecipeCandys> createState() =>
+      _SessionMenuRecipeCandysState();
 }
 
-class _SessionMenuRecipeDrinksState extends State<SessionMenuRecipeDrinks> {
+class _SessionMenuRecipeCandysState extends State<SessionMenuRecipeCandys> {
   late final RecipeBlocRecipesByCategory _blocRecipeDrinks;
 
   @override
@@ -29,7 +28,7 @@ class _SessionMenuRecipeDrinksState extends State<SessionMenuRecipeDrinks> {
     // TODO: implement initState
     super.initState();
     _blocRecipeDrinks = Modular.get<RecipeBlocRecipesByCategory>();
-    _blocRecipeDrinks.add(RecipeByCategoryEvent<RecipeEvent>(idCategory: 12));
+    _blocRecipeDrinks.add(RecipeByCategoryEvent<RecipeEvent>(idCategory: 9));
     // _blocCategory.add(LoadGenericBlocEvent<CategoryEvent>());
   }
 
@@ -44,9 +43,9 @@ class _SessionMenuRecipeDrinksState extends State<SessionMenuRecipeDrinks> {
         } else if (state is GenericBlocLoadedState<RecipeState, RecipeEntity>) {
           return Responsive.maxWidthScreen(context) > 1000
               ? SessionData(
-                  text: 'Refresque-se com Sabor',
+                  text: 'Bolos, tortas e doces',
                   subText:
-                      'Descubra como preparar bebidas deliciosas e saudáveis em poucos minutos. Explore nossas receitas refrescantes!',
+                      'Descubra como preparar doces deliciosas em poucos minutos. Explore nossas receitas!',
                   list: state.entityList,
                   scrool: true,
                 )

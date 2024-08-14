@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:kitchen_app/modules/core_module/designer_system/footer_widget.dart';
 import '../../../../core_module/features/bloc/generic_bloc_event.dart';
 import '../../../../core_module/features/bloc/generic_bloc_state.dart';
 import '../../../../core_module/designer_system/global_scaffold_widget.dart';
@@ -13,6 +14,7 @@ import '../../bloc/recipe_event.dart';
 import '../../bloc/recipe_state.dart';
 import '../widgets/category_check_box_widget.dart';
 import '../widgets/session_menu_of_the_day_recipe.dart';
+import '../widgets/session_menu_recipe_category_candys.dart';
 import '../widgets/session_menu_recipe_category_drinks.dart';
 import '../widgets/session_random_recipe.dart';
 
@@ -102,118 +104,17 @@ class _RecipePageDesktopState extends State<RecipePageDesktop> {
                             height: 80,
                           ),
                           const SessionMenuRecipeDrinks(),
+                          const SizedBox(
+                            height: 80,
+                          ),
+                          const SessionMenuRecipeCandys(),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 )
               : const SizedBox(),
         ));
-    //   body: BlocBuilder<RecipeBloc, GenericBlocState<RecipeState>>(
-    //     bloc: _blocRecipe,
-    //     builder: (context, state) {
-    //       if (state is GenericBlocLoadingState<RecipeState>) {
-    //         return const LoadingTest();
-    //       }
-    //       // else if(state is RecipeStateLoadedState){
-
-    //       // }
-    //       else if (state is GenericBlocLoadedState<RecipeState, RecipeEntity>) {
-    //         return Container(
-    //             padding: EdgeInsets.symmetric(
-    //                 horizontal:
-    //                     Responsive.maxWidthScreen(context) < 1500 ? 20 : 120,
-    //                 vertical: 50),
-    //             child: Responsive.maxWidthScreen(context) > 1500
-    //                 ? Row(
-    //                     crossAxisAlignment: CrossAxisAlignment.start,
-    //                     children: <Widget>[
-    //                       Expanded(
-    //                         flex: 1,
-    //                         child: Container(
-    //                           padding: const EdgeInsets.only(right: 50),
-    //                           color: Colors.transparent,
-    //                           height: 869,
-    //                           child: const CategoryCheckBoxWidget(),
-    //                         ),
-    //                       ),
-    //                       Expanded(
-    //                         flex: 4,
-    //                         child: Column(
-    //                           children: [
-    //                             SessionMenuOfTheDay(
-    //                               text: 'Cardápio do dia',
-    //                               subText:
-    //                                   'Pratos do dia para aprender a fazer de forma fácil e pratica- clique em ver mais para outros opções',
-    //                               list: state.entityList,
-    //                             ),
-    //                           ],
-    //                         ),
-    //                       ),
-    //                     ],
-    //                   )
-    //                 : const SizedBox()
-    //             // : Column(
-    //             //     children: [
-    //             //       Container(
-    //             //         padding: const EdgeInsets.symmetric(horizontal: 60),
-    //             //         color: Colors.transparent,
-    //             //         // height: 869,
-    //             //         child: Column(
-    //             //           crossAxisAlignment: CrossAxisAlignment.start,
-    //             //           children: [
-    //             //             Text(
-    //             //               'Filtrar por tipo',
-    //             //               style: theme.textTheme.bodyLarge!
-    //             //                   .copyWith(fontWeight: FontWeight.bold),
-    //             //             ),
-    //             //             const Text('Categorias tipos'),
-    //             //             const SizedBox(
-    //             //               height: 20,
-    //             //             ),
-    //             //             Wrap(
-    //             //               children: listCheckBox,
-    //             //             )
-    //             //           ],
-    //             //         ),
-    //             //       ),
-    //             //       Container(
-    //             //         color: Colors.transparent,
-    //             //         child: Wrap(
-    //             //           // runAlignment: WrapAlignment.spaceBetween,
-    //             //           alignment: WrapAlignment.spaceBetween,
-    //             //           spacing: 50,
-    //             //           runSpacing: 20,
-    //             //           // alignment: WrapAlignment.spaceAround,
-    //             //           // runSpacing: 10,
-    //             //           children:
-    //             //               List.generate(state.entityList.length, (index) {
-    //             //             RecipeEntity recipe = state.entityList[index];
-    //             //             return CardWidget(
-    //             //               image: NetworkImage(
-    //             //                   '${BaseUrlApi.baseUrlMedia}${recipe.imageUrl}'),
-    //             //               name: recipe.name,
-    //             //               duration: recipe.timeToPrepare.toString(),
-    //             //               category: recipe.category,
-    //             //             );
-    //             //           }),
-    //             //         ),
-    //             //       ),
-    //             //     ],
-    //             //   ),
-    //             );
-    //       } else if (state is GenericBlocErrorState<RecipeState>) {
-    //         return Container(
-    //           padding: const EdgeInsets.symmetric(vertical: 120),
-    //           child: ErrorStateWidget(
-    //             message: state.message,
-    //           ),
-    //         );
-    //       }
-    //       return const SizedBox();
-    //     },
-    //   ),
-    // );
   }
 }
 

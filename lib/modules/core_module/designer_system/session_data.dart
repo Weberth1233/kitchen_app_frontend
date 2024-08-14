@@ -12,16 +12,19 @@ class SessionData extends StatelessWidget {
   final List<RecipeEntity> list;
   final String text;
   final String subText;
+  final bool scrool;
+
   const SessionData(
       {super.key,
       required this.list,
       required this.text,
-      required this.subText});
+      required this.subText,
+      this.scrool = false});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final sizeWidth = MediaQuery.of(context).size.width;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -32,7 +35,7 @@ class SessionData extends StatelessWidget {
               Expanded(
                 child: Text(text,
                     style: theme.textTheme.headlineSmall!
-                        .copyWith(fontWeight: FontWeight.bold)),
+                        .copyWith(fontWeight: FontWeight.w500)),
               ),
               TextButton(
                 onPressed: () {
@@ -59,31 +62,60 @@ class SessionData extends StatelessWidget {
           const SizedBox(
             height: 25,
           ),
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 10,
-            children: List.generate(list.length, (index) {
-              RecipeEntity recipe = list[index];
-              return SizedBox(
-                width: 260,
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
-                      Modular.to.pushNamed('/recipe_detail/${recipe.id}');
-                    },
-                    child: CardWidget(
-                      image: NetworkImage(
-                          '${BaseUrlApi.baseUrlMedia}${recipe.imageUrl}'),
-                      name: recipe.name,
-                      duration: recipe.timeToPrepare.toString(),
-                      category: recipe.category.name,
-                    ).paddingOnly(right: 10),
+          scrool
+              ? SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: List.generate(list.length, (index) {
+                      RecipeEntity recipe = list[index];
+                      return SizedBox(
+                        width: 260,
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              Modular.to
+                                  .pushNamed('/recipe_detail/${recipe.id}');
+                            },
+                            child: CardWidget(
+                              image: NetworkImage(
+                                  '${BaseUrlApi.baseUrlMedia}${recipe.imageUrl}'),
+                              name: recipe.name,
+                              duration: recipe.timeToPrepare.toString(),
+                              category: recipe.category.name,
+                            ).paddingOnly(right: 10),
+                          ),
+                        ),
+                      );
+                    }),
                   ),
+                )
+              : Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: sizeWidth <= 1500 ? 5 : 10,
+                  children: List.generate(list.length, (index) {
+                    RecipeEntity recipe = list[index];
+                    return SizedBox(
+                      width: sizeWidth <= 1500 ? 225 : 260,
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () {
+                            Modular.to.pushNamed('/recipe_detail/${recipe.id}');
+                          },
+                          child: CardWidget(
+                            image: NetworkImage(
+                                '${BaseUrlApi.baseUrlMedia}${recipe.imageUrl}'),
+                            name: recipe.name,
+                            duration: recipe.timeToPrepare.toString(),
+                            category: recipe.category.name,
+                          ).paddingOnly(right: 10),
+                        ),
+                      ),
+                    );
+                  }),
                 ),
-              );
-            }),
-          ),
         ],
       ),
     );

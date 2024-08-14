@@ -42,7 +42,7 @@ class RecipeModule extends Module {
       () => RecipeBlocRandomRecipe(
           useCase: i.get<IUseCase<RecipeEntity, NoParams, RecipeModel>>()),
     );
-    i.addSingleton<RecipeBlocRecipesByCategory>(
+    i.add<RecipeBlocRecipesByCategory>(
       () => RecipeBlocRecipesByCategory(
           useCase: i.get<IUseCase<RecipeEntity, NoParams, RecipeModel>>()),
     );
