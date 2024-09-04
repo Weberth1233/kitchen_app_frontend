@@ -30,17 +30,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
   cupertino_icons: ^1.0.6
-  supabase_flutter: ^2.5.9
-  flutter_dotenv: ^5.1.0
   image_picker: ^1.1.2
   dartz: ^0.10.1
   equatable: ^2.0.5
   google_fonts: ^6.2.0
   flutter_modular: ^6.3.4
-  bloc: ^8.1.4
   flutter_bloc: ^8.1.6
   get: ^4.6.6
   font_awesome_flutter: ^10.7.0

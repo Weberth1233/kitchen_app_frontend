@@ -68,7 +68,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                         height: 10,
                       ),
                       Text(
-                        "Categoria: ${entity.category.name}",
+                        "Categoria kkkkkkkk: ${entity.category.name}",
                         style: theme.textTheme.bodySmall!
                             .copyWith(color: theme.colorScheme.outlineVariant),
                       ),
